@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Section Layout</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="section1">
+                <!-- Camera feed will be displayed here -->
+                <img id="camera-feed" src="static/40a37e93faef22bdb342df81c6061b43.jpg" alt="Camera Feed">
+            </div>
+            <div class="section2">
+                <!-- Content for the second section goes here -->
+                <button onclick="toggleCamera()">Start/Stop</button>
+                <div id="person-details">
+                    <!-- Person's details will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var cameraActive = false;
+
+        function toggleCamera() {
+            var cameraFeed = document.getElementById("camera-feed");
+            var personDetails = document.getElementById("person-details");
+
+            if (cameraActive) {
+                cameraFeed.src = "/static/40a37e93faef22bdb342df81c6061b43.jpg"; // Set to placeholder image
+                personDetails.innerHTML = ""; // Clear person details
+            } else {
+                cameraFeed.src = "/start_camera"; // Start camera feed
+            }
+
+            cameraActive = !cameraActive; // Toggle camera state
+        }
+
+        function displayPersonDetails(name, address, phone) {
+            var personDetails = document.getElementById("person-details");
+            personDetails.innerHTML = "<p>Name: " + name + "</p><p>Address: " + address + "</p><p>Phone: " + phone + "</p>";
+        }
+    </script>
+</body>
+</html>

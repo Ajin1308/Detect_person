@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+    <style>
+        body {
+            text-align: center; /* Center-align the content */
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Image to Database</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address"><br>
+        <label for="phone">Phone:</label><br>
+        <input type="text" id="phone" name="phone"><br>
+        <label for="image">Image:</label><br>
+        <input type="file" id="image" name="image"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if details %}
+        <h2>Uploaded Details:</h2>
+        <p>Name: {{ details.name }}</p>
+        <p>Address: {{ details.address }}</p>
+        <p>Phone: {{ details.phone }}</p>
+        <h2>Uploaded Image:</h2>
+        <img src="data:image/jpeg;base64,{{ details.image }}" alt="Uploaded Image">
+        <br><br>
+        <form action="/upload">
+            <input type="submit" value="Add New Details">
+        </form>
+    {% endif %}
+    <a href="/">Go back to Home</a>
+</body>
+</html>
