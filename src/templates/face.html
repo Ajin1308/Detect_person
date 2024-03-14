@@ -3,22 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three Section Layout</title>
-    <link rel="stylesheet" href="static/style.css">
+    <title>Detect Person</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .camera-section {
+            width: 100%;
+            height: 85%;
+            border: 2px solid #000; /* Adjusted to take 90% of the row width */
+        }
+
+        .button-section {
+            width: 100%; /* Adjusted to take 10% of the row width */
+        }
+
+        .section img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .section button {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #124d14;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .camera-frame {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
+            border-radius: 8px;
+           
+        }
+
+        .camera-frame img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="section1">
-                <!-- Camera feed will be displayed here -->
-                <img id="camera-feed" src="static/40a37e93faef22bdb342df81c6061b43.jpg" alt="Camera Feed">
+            <div class="section camera-section">
+                <div class="camera-frame">
+                    <!-- Camera feed will be displayed here -->
+                    <img id="camera-feed" src="static/40a37e93faef22bdb342df81c6061b43.jpg" alt="Camera Feed">
+                </div>
             </div>
-            <div class="section2">
+            <div class="section button-section">
                 <!-- Content for the second section goes here -->
                 <button onclick="toggleCamera()">Start/Stop</button>
-                <div id="person-details">
-                    <!-- Person's details will be displayed here -->
-                </div>
             </div>
         </div>
     </div>
@@ -27,21 +95,14 @@
 
         function toggleCamera() {
             var cameraFeed = document.getElementById("camera-feed");
-            var personDetails = document.getElementById("person-details");
 
             if (cameraActive) {
-                cameraFeed.src = "/static/40a37e93faef22bdb342df81c6061b43.jpg"; // Set to placeholder image
-                personDetails.innerHTML = ""; // Clear person details
+                cameraFeed.src = "static/40a37e93faef22bdb342df81c6061b43.jpg"; // Set to placeholder image
             } else {
                 cameraFeed.src = "/start_camera"; // Start camera feed
             }
 
             cameraActive = !cameraActive; // Toggle camera state
-        }
-
-        function displayPersonDetails(name, address, phone) {
-            var personDetails = document.getElementById("person-details");
-            personDetails.innerHTML = "<p>Name: " + name + "</p><p>Address: " + address + "</p><p>Phone: " + phone + "</p>";
         }
     </script>
 </body>

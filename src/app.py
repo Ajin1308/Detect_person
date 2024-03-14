@@ -10,6 +10,7 @@ from utils.utils import *
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def main():
     return render_template('index.html')
@@ -42,7 +43,6 @@ def upload():
 def face():
     return render_template('face.html')
 
-         
 
 @app.route('/start_camera')
 def start_camera():
@@ -61,7 +61,18 @@ def admin():
 
 
    
+import logging
 
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)  # Set the logging level to DEBUG
+
+# Add logging statements in your code
+logging.debug("Starting Flask app...")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    try:
+        app.run(debug=True)
+    except Exception as e:
+        print("An error occurred:", e)
+        import traceback
+        traceback.print_exc()

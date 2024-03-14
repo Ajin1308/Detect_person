@@ -46,7 +46,7 @@ def generate_frames(known_face_encodings,known_face_names):
     face_encodings = []
     face_names = []
     process_this_frame = True
-    person_details_yielded = False
+    last_yielded_id = None
 
     while True:
         success, frame = cam.read()
@@ -94,20 +94,33 @@ def generate_frames(known_face_encodings,known_face_names):
                 font = cv2.FONT_HERSHEY_DUPLEX
                 cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
+
                 if name != "Unknown":
                     db = mysql_connect()
                     cursor = db.cursor()
-                    cursor.execute("SELECT name, address, phone FROM persons WHERE name = %s", (name,))
+                    cursor.execute("SELECT id, name, address, phone FROM persons WHERE name = %s", (name,))
                     person_details = cursor.fetchone()
                     cursor.close()
 
-                    print('data: {0}\n\n'.format(','.join(person_details)))
-                    yield 'data: {0}\n\n'.format(','.join(person_details))
-
-                    person_details_yielded = True  
-                else:
-                    person_details_yielded = False 
                     
+                    person_id = person_details[0]
+
+                    if person_id != last_yielded_id:
+                        # Convert integer values to strings before using them
+                        return_data(person_details)
+                        person_details_str = [str(item) for item in person_details]
+                        print('data: {0}\n\n'.format(','.join(person_details_str)))
+                        yield 'data: {0}\n\n'.format(','.join(person_details_str))
+                        last_yielded_id = person_id 
+                #     if person_id != last_yielded_id:
+                #         last_yielded_id = person_id 
+                #         yield frame, person_details  # Yield both frame and details
+                # else:
+                #     yield frame, "Unknown"
+                    else :
+                        r_unknown()
+                        print("Unknown1")
+                        yield "Unknown"
 
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
@@ -119,3 +132,14 @@ def generate_frames(known_face_encodings,known_face_names):
 def run_all():
     known_face_encodings, known_face_names = load_images_from_mysql()
     return generate_frames(known_face_encodings, known_face_names)
+
+
+def return_data(person_details):
+    person_details_str = [str(item) for item in person_details]
+    print(person_details_str)
+
+
+
+def r_unknown():
+    print("Unknown")
+    
