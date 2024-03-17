@@ -13,11 +13,11 @@ The **DETECT PERSON** project utilizes facial recognition to identify individual
 ## Getting Started
 
 1. **Setup MySQL Database**:
-   - Install MySQL and create a database named "persons".
-   - Within the "persons" database, create a table named "persons" to store person details.
+   - Install MySQL and create a database.
+   - Within the database, create a table named "persons" to store person details.
 
 2. **Configuration**:
-   - Update the MySQL username and password in the `utils.py` file to match your database credentials.
+   - Update the MySQL host,username,password,database in the `utils.py` file to match your database credentials.
 
 3. **Installation**:
    - Download the required dependencies listed in `requirements.txt` by running `pip install -r requirements.txt`.
