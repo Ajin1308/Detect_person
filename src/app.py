@@ -3,8 +3,8 @@ import mysql.connector
 import cv2
 import os
 import base64
-import sys
-sys.path.append(r'C:\Users\AKHILASWIN\Detect_person')
+# import sys
+# sys.path.append(r'C:\Users\AJIN\Detect_person')
 
 from utils.utils import *
 

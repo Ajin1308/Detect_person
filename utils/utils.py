@@ -7,10 +7,10 @@ import time
 
 def mysql_connect():
     db = mysql.connector.connect(
-    host = 'localhost',
-    user = "root",
-    password = 'Aswin@321',
-    database = 'ajindb'
+    host = '',
+    user = "",
+    password = '',
+    database = ''
     )
     return db
 
