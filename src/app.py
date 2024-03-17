@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Response
+from flask import Flask, render_template, request, redirect, url_for, Response, jsonify
 import mysql.connector
 import cv2
 import os
@@ -14,7 +14,6 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     return render_template('index.html')
-    # return "Hello"
 
 @app.route('/upload', methods =['GET','POST'])
 def upload():
@@ -43,7 +42,6 @@ def upload():
 def face():
     return render_template('face.html')
 
-
 @app.route('/start_camera')
 def start_camera():
     return Response(run_all(), mimetype='multipart/x-mixed-replace; boundary=frame')
@@ -60,19 +58,6 @@ def admin():
     return render_template('admin.html', results=results)
 
 
-   
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.DEBUG)  # Set the logging level to DEBUG
-
-# Add logging statements in your code
-logging.debug("Starting Flask app...")
 
 if __name__ == '__main__':
-    try:
-        app.run(debug=True)
-    except Exception as e:
-        print("An error occurred:", e)
-        import traceback
-        traceback.print_exc()
+    app.run(debug=True)

@@ -106,20 +106,12 @@ def generate_frames(known_face_encodings,known_face_names):
                     person_id = person_details[0]
 
                     if person_id != last_yielded_id:
-                        # Convert integer values to strings before using them
-                        return_data(person_details)
                         person_details_str = [str(item) for item in person_details]
                         print('data: {0}\n\n'.format(','.join(person_details_str)))
                         yield 'data: {0}\n\n'.format(','.join(person_details_str))
                         last_yielded_id = person_id 
-                #     if person_id != last_yielded_id:
-                #         last_yielded_id = person_id 
-                #         yield frame, person_details  # Yield both frame and details
-                # else:
-                #     yield frame, "Unknown"
+
                     else :
-                        r_unknown()
-                        print("Unknown1")
                         yield "Unknown"
 
             ret, buffer = cv2.imencode('.jpg', frame)
@@ -133,13 +125,4 @@ def run_all():
     known_face_encodings, known_face_names = load_images_from_mysql()
     return generate_frames(known_face_encodings, known_face_names)
 
-
-def return_data(person_details):
-    person_details_str = [str(item) for item in person_details]
-    print(person_details_str)
-
-
-
-def r_unknown():
-    print("Unknown")
     
